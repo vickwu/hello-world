@@ -3,7 +3,7 @@ from flask import Flask, request,jsonify
 from flask_restful import Resource, Api
 from joblib import load
 import xgboost as xgb
-# import pandas as pd
+import pandas as pd
 MODEL_DIR = 'model/'
 MODEL_FILE = 'bst.joblib'
 DICT_FILE = 'reason_dic.joblib'
@@ -17,7 +17,7 @@ mdl= load(MODEL_PATH)
 # load reason_code
 reason_dict= load(DICT_PATH)
 # Load SHAP value
-explainer= load(SHAP_PATH)
+# explainer= load(SHAP_PATH)
 # %% create service
 app = Flask(__name__)
 api = Api(app)
