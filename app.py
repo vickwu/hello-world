@@ -24,7 +24,19 @@ api = Api(app)
 class prediction(Resource):
     def post(self):
         data=request.get_json()
-        return data
+        required_features=mdl.feature_names
+        ordered_data={var:[data[var]] for var in required_features}
+        X=pd.DataFrame.from_dict(ordered_data,orient='columns').astype(float)
+        dX = xgb.DMatrix(X)
+        preds = mdl.predict(dX)
+        Score=int(preds[0]*10000)/100
+        unique_code=['placeholder','placeholder','placeholder','placeholder']
+        return {'prediction(PD%)': Score,
+        'reason_Code1':unique_code[0],
+        'reason_Code2':unique_code[1],
+        'reason_Code3':unique_code[2],
+        'reason_Code4':unique_code[3]
+        }
     def get(self):
         return {'Message':'successfully deployed'}
 # %% service online 
