@@ -2,7 +2,7 @@
 from flask import Flask, request,jsonify
 from flask_restful import Resource, Api
 from joblib import load
-# import xgboost as xgb
+import xgboost as xgb
 # import pandas as pd
 MODEL_DIR = 'model/'
 MODEL_FILE = 'bst.joblib'
