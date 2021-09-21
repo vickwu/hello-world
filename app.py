@@ -14,9 +14,9 @@ MODEL_PATH=MODEL_DIR+MODEL_FILE
 DICT_PATH=MODEL_DIR+DICT_FILE
 SHAP_PATH=MODEL_DIR+SHAP_FILE
 # Load model structure file
-# mdl= load(MODEL_PATH)
+mdl= load(MODEL_PATH)
 # load reason_code
-# reason_dict= load(DICT_PATH)
+reason_dict= load(DICT_PATH)
 # Load SHAP value
 # explainer= load(SHAP_PATH)
 # %% create service
