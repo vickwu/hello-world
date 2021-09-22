@@ -17,7 +17,7 @@ mdl= load(MODEL_PATH)
 # load reason_code
 reason_dict= load(DICT_PATH)
 # Load SHAP value
-# explainer= load(SHAP_PATH)
+explainer= load(SHAP_PATH)
 # %% create service
 app = Flask(__name__)
 api = Api(app)
