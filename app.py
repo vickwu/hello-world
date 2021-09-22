@@ -4,6 +4,7 @@ from flask_restful import Resource, Api
 from joblib import load
 import xgboost as xgb
 import pandas as pd
+import shap
 MODEL_DIR = 'model/'
 MODEL_FILE = 'bst.joblib'
 DICT_FILE = 'reason_dic.joblib'
