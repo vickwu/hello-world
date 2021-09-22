@@ -1,0 +1,34 @@
+
+data={
+    "LINKF193":94.0,
+    "TotalMonthlyIncome":3466.0,
+    "BALMAG01":132.0,
+    "LINKF112":1.0,
+    "G404S":1.0,
+    "G106S":134.0,
+    "RE20S":101.0,
+    "BR20S":0,
+    "US20S":20.0,
+    "LINKF184":0,
+    "US34S":72.0,
+    "LINKF169":0.0,
+    "IsReturningCustomer_N":0.0,
+    "G990S":3.0,
+    "S004S":46.0,
+    "LINKF171":0.0,
+    "AGG910":0,
+    "G209S":0,
+    "LINKF196":0,
+    "CV24":0}
+required_features=mdl.feature_names
+ordered_data={var:[data[var]] for var in required_features}
+X=pd.DataFrame.from_dict(ordered_data,orient='columns').astype(float)
+dX = xgb.DMatrix(X)
+preds = mdl.predict(dX)
+Score=int(preds[0]*10000)/100
+SHAP_VALUE=X.T
+shap_value = explainer(X)
+SHAP_VALUE['SHAP_contri']=list(shap_value[0].values)
+SHAP_VALUE['AAR']=SHAP_VALUE.index.map(reason_dict)
+SHAP_VALUE=SHAP_VALUE.sort_values(by='SHAP_contri', ascending=False)
+unique_code=list(SHAP_VALUE.AAR.drop_duplicates())
