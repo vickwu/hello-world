@@ -8,11 +8,10 @@ import shap
 MODEL_DIR = 'model/'
 MODEL_FILE = 'bst.joblib'
 DICT_FILE = 'reason_dic.joblib'
-# SHAP_FILE = 'explainer.joblib'
 # %% Load modeling and ARR info
 MODEL_PATH=MODEL_DIR+MODEL_FILE
 DICT_PATH=MODEL_DIR+DICT_FILE
-SHAP_PATH=MODEL_DIR+SHAP_FILE
+
 # Load model structure file
 mdl= load(MODEL_PATH)
 # load reason_code
