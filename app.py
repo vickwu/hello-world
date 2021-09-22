@@ -18,7 +18,7 @@ mdl= load(MODEL_PATH)
 # load reason_code
 reason_dict= load(DICT_PATH)
 # Load SHAP value
-explainer = shap.TreeExplainer(mdl)
+# explainer = shap.TreeExplainer(mdl)
 
 # %% create service
 app = Flask(__name__)
@@ -33,10 +33,10 @@ class prediction(Resource):
         preds = mdl.predict(dX)
         Score=int(preds[0]*10000)/100
         SHAP_VALUE=X.T
-        shap_value = explainer(X)
-        SHAP_VALUE['SHAP_contri']=list(shap_value[0].values)
+        # shap_value = explainer(X)
+        # SHAP_VALUE['SHAP_contri']=list(shap_value[0].values)
         SHAP_VALUE['AAR']=SHAP_VALUE.index.map(reason_dict)
-        SHAP_VALUE=SHAP_VALUE.sort_values(by='SHAP_contri', ascending=False)
+        # SHAP_VALUE=SHAP_VALUE.sort_values(by='SHAP_contri', ascending=False)
         unique_code=list(SHAP_VALUE.AAR.drop_duplicates())
         return {'prediction(PD%)': Score,
         'reason_Code1':unique_code[0],
