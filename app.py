@@ -5,6 +5,7 @@ from joblib import load
 import xgboost as xgb
 import pandas as pd
 import shap
+from func import score_align
 MODEL_DIR = 'model/'
 MODEL_FILE = 'bst.joblib'
 DICT_FILE = 'reason_dic.joblib'
@@ -30,14 +31,14 @@ class prediction(Resource):
         X=pd.DataFrame.from_dict(ordered_data,orient='columns').astype(float)
         dX = xgb.DMatrix(X)
         preds = mdl.predict(dX)
-        Score=int(preds[0]*10000)/100
+        Score=score_align(preds[0])
         SHAP_VALUE=X.T
         shap_value = explainer(X)
         SHAP_VALUE['SHAP_contri']=list(shap_value[0].values)
         SHAP_VALUE['AAR']=SHAP_VALUE.index.map(reason_dict)
         SHAP_VALUE=SHAP_VALUE.sort_values(by='SHAP_contri', ascending=False)
         unique_code=list(SHAP_VALUE.AAR.drop_duplicates())
-        return {'prediction(PD%)': Score,
+        return {'Score': Score,
         'reason_Code1':unique_code[0],
         'reason_Code2':unique_code[1],
         'reason_Code3':unique_code[2],
